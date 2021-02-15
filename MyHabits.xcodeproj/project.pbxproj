@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C332422A25DB0D9100D5F3FD /* Текст.md in Resources */ = {isa = PBXBuildFile; fileRef = C332422925DB0D9100D5F3FD /* Текст.md */; };
 		C33F850025D8950500EE4441 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F84FF25D8950500EE4441 /* AppDelegate.swift */; };
 		C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F850125D8950500EE4441 /* SceneDelegate.swift */; };
 		C33F850725D8950500EE4441 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33F850525D8950500EE4441 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C332422925DB0D9100D5F3FD /* Текст.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Текст.md"; sourceTree = "<group>"; };
 		C33F84FC25D8950500EE4441 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33F84FF25D8950500EE4441 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C33F850125D8950500EE4441 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C332422F25DB207600D5F3FD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C332422925DB0D9100D5F3FD /* Текст.md */,
+				C33F851425D8982E00EE4441 /* HabitsStore.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		C33F84F325D8950500EE4441 = {
 			isa = PBXGroup;
 			children = (
@@ -60,9 +71,9 @@
 		C33F84FE25D8950500EE4441 /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
+				C332422F25DB207600D5F3FD /* Data */,
 				C3AEBFD825DB0924000E3443 /* Controller */,
 				C33F84FF25D8950500EE4441 /* AppDelegate.swift */,
-				C33F851425D8982E00EE4441 /* HabitsStore.swift */,
 				C33F850125D8950500EE4441 /* SceneDelegate.swift */,
 				C33F850525D8950500EE4441 /* Main.storyboard */,
 				C33F850825D8950800EE4441 /* Assets.xcassets */,
@@ -141,6 +152,7 @@
 				C33F850C25D8950800EE4441 /* LaunchScreen.storyboard in Resources */,
 				C33F850925D8950800EE4441 /* Assets.xcassets in Resources */,
 				C33F850725D8950500EE4441 /* Main.storyboard in Resources */,
+				C332422A25DB0D9100D5F3FD /* Текст.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
