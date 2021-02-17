@@ -14,15 +14,14 @@ class InfoViewController: UIViewController {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.setTitleFont()
         label.text = "Привычка за 21 день"
         return label
     }()
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.numberOfLines = 0
+        label.setBodyFont()
         return label
     }()
     
@@ -30,9 +29,8 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(descriptionLabel)
-        disableAutoresizingMask(views: [scrollView, containerView, titleLabel, descriptionLabel])
+        containerView.addSubviews(views: [titleLabel, descriptionLabel])
+        view.disableAutoresizingMask(views: [scrollView, containerView, titleLabel, descriptionLabel])
         setupConstraints()
         loadDescription()
     }
@@ -62,12 +60,6 @@ class InfoViewController: UIViewController {
             descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -22)
             
         ])
-    }
-    
-    func disableAutoresizingMask(views: [UIView]) {
-        views.forEach({
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
     }
     
     func loadDescription() {
