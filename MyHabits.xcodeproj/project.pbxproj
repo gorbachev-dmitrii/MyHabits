@@ -11,6 +11,7 @@
 		C332423125DB20E500D5F3FD /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423025DB20E500D5F3FD /* HabitViewController.swift */; };
 		C332423525DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */; };
 		C332423C25DDB0CE00D5F3FD /* UILabel + Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */; };
+		C332423F25DEFD0500D5F3FD /* UIColor + CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */; };
 		C33F850025D8950500EE4441 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F84FF25D8950500EE4441 /* AppDelegate.swift */; };
 		C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F850125D8950500EE4441 /* SceneDelegate.swift */; };
 		C33F850725D8950500EE4441 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33F850525D8950500EE4441 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		C332423025DB20E500D5F3FD /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DisableAutoresizingMask.swift"; sourceTree = "<group>"; };
 		C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Fonts.swift"; sourceTree = "<group>"; };
+		C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + CustomColors.swift"; sourceTree = "<group>"; };
 		C33F84FC25D8950500EE4441 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33F84FF25D8950500EE4441 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C33F850125D8950500EE4441 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			children = (
 				C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */,
 				C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */,
+				C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				C332423125DB20E500D5F3FD /* HabitViewController.swift in Sources */,
 				C33F850025D8950500EE4441 /* AppDelegate.swift in Sources */,
 				C332423C25DDB0CE00D5F3FD /* UILabel + Fonts.swift in Sources */,
+				C332423F25DEFD0500D5F3FD /* UIColor + CustomColors.swift in Sources */,
 				C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */,
 				C332423525DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift in Sources */,
 				C3AEBFD225DB0700000E3443 /* HabitsViewController.swift in Sources */,

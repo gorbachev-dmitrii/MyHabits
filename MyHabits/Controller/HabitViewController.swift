@@ -8,7 +8,7 @@
 import UIKit
 
 class HabitViewController: UIViewController {
-
+    // MARK: Properties
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
@@ -43,7 +43,7 @@ class HabitViewController: UIViewController {
         return label
     }()
     
-    private lazy var colorPicker: UIColorPickerViewController = {
+    lazy var colorPicker: UIColorPickerViewController = {
         let cp = UIColorPickerViewController()
         cp.delegate = self
         return cp
@@ -62,21 +62,60 @@ class HabitViewController: UIViewController {
         return picker
     }()
     
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubviews(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker])
         view.disableAutoresizingMask(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker])
         setupConstraints()
         setupDatePicker()
+        configureNavigationButtons()
+    }
+    @objc func closeModal() {
+        self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func saveHabit() {
+        if let text = titleInput.text, let color = colorPickerButton.backgroundColor {
+            let newHabit = Habit(name: text,
+                                 date: datePicker.date,
+                                 color: color)
+            let store = HabitsStore.shared
+            store.habits.append(newHabit)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            print("при сохранении ошибка")
+        }
+        
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         colorPickerButton.layer.cornerRadius = colorPickerButton.frame.height / 2
     }
     
+    func configureNavigationButtons() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeModal))
+        navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveHabit))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
+    }
+    
+    // MARK: Date and Color Picker
     @objc func showColorPicker() {
         self.present(colorPicker, animated: true, completion: nil)
+    }
+    
+    func setupDatePicker() {
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
+    }
+    
+    @objc func datePickerValue(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        chooseTimeLabel.attributedText = createAttrString(fromString: dateFormatter.string(from: datePicker.date))
     }
     
     // MARK: Setup Constraints
@@ -112,16 +151,16 @@ class HabitViewController: UIViewController {
             datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    func setupDatePicker() {
-        datePicker.datePickerMode = .time
-        datePicker.preferredDatePickerStyle = .wheels
-    }
-    @objc func datePickerValue(_ sender: UIDatePicker) {
-        print(datePicker.date)
+    
+    func createAttrString(fromString: String) -> NSAttributedString {
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "myPurple")]
+        let attrString = NSMutableAttributedString(string: fromString, attributes: attributes as [NSAttributedString.Key : Any])
+        let normalStr = NSMutableAttributedString(string: "Каждый день в ")
+        normalStr.append(attrString)
+        return normalStr
     }
 }
-
-
+// MARK: UIColorPickerViewControllerDelegate
 extension HabitViewController: UIColorPickerViewControllerDelegate {
     //  Called on every color selection done in the picker.
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {

@@ -51,7 +51,7 @@
         <!--Создать-->
         <scene sceneID="6fg-wo-5LB">
             <objects>
-                <viewController id="CIp-NP-oCC" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HabitViewController" id="CIp-NP-oCC" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8ju-ti-T9B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,9 +62,6 @@
                         <barButtonItem title="Item" id="iTL-nN-Br3"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Создать" id="Z45-yk-608">
-                        <barButtonItem key="leftBarButtonItem" title="Отменить" id="rx0-Ah-uPV">
-                            <color key="tintColor" name="myPurple"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Сохранить" id="H9X-ea-baE">
                             <color key="tintColor" name="myPurple"/>
                         </barButtonItem>
