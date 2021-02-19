@@ -18,9 +18,32 @@ extension UILabel {
         self.numberOfLines = 0
     }
     
-    func setFootnoteFont() {
+    func setHeadLineFont() {
+        self.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        self.numberOfLines = 0
+    }
+    
+    func setFootnoteFontUppercased() {
         self.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         self.text = text?.uppercased()
         self.numberOfLines = 0
+    }
+    
+    func setFootnoteFont() {
+        self.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        self.numberOfLines = 0
+        self.textColor = .systemGray
+    }
+    
+    func setFootnoteStatusFont() {
+        self.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        self.numberOfLines = 0
+        self.textColor = .systemGray
+    }
+    
+    func setCaptionFont() {
+        self.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        self.numberOfLines = 0
+        self.textColor = .systemGray2
     }
 }

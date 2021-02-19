@@ -12,7 +12,7 @@ class HabitViewController: UIViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
-        label.setFootnoteFont()
+        label.setFootnoteFontUppercased()
         return label
     }()
     let titleInput: UITextField = {
@@ -25,7 +25,7 @@ class HabitViewController: UIViewController {
     let colorLabel: UILabel = {
         let label = UILabel()
         label.text = "Цвет"
-        label.setFootnoteFont()
+        label.setFootnoteFontUppercased()
         return label
     }()
     
@@ -39,7 +39,7 @@ class HabitViewController: UIViewController {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "Время"
-        label.setFootnoteFont()
+        label.setFootnoteFontUppercased()
         return label
     }()
     
