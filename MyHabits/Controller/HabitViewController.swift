@@ -15,6 +15,7 @@ class HabitViewController: UIViewController {
         label.setFootnoteFontUppercased()
         return label
     }()
+    
     let titleInput: UITextField = {
         let input = UITextField()
         input.placeholder = "Бегать по утрам, спать 8 часов и т.п."

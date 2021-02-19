@@ -16,8 +16,9 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentModally))
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentModally))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
+        title = "Cегодня"
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(

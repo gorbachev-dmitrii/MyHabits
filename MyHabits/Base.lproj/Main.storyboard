@@ -3,13 +3,12 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Информация-->
+        <!--Info View Controller-->
         <scene sceneID="05L-DE-A8l">
             <objects>
                 <viewController id="lfA-XR-AzH" customClass="InfoViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,11 +18,11 @@
                         <viewLayoutGuide key="safeArea" id="9JX-vr-Yyv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Информация" image="info.circle.fill" catalog="system" id="bxv-zi-HS6"/>
+                    <navigationItem key="navigationItem" id="mLU-Hq-XIZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1zW-mQ-vll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225" y="460"/>
+            <point key="canvasLocation" x="1134.7826086956522" y="459.375"/>
         </scene>
         <!--Habits View Controller-->
         <scene sceneID="vzQ-ow-dlB">
@@ -35,14 +34,7 @@
                         <viewLayoutGuide key="safeArea" id="Rgc-nV-RT2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="NPW-i2-iCD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="X4c-tJ-OGC">
-                            <color key="tintColor" name="myPurple"/>
-                            <connections>
-                                <segue destination="OcH-E0-mKd" kind="presentation" id="FAi-qk-u8D"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="NPW-i2-iCD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ehK-MM-o3L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -53,7 +45,7 @@
             <objects>
                 <viewController storyboardIdentifier="HabitViewController" id="CIp-NP-oCC" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8ju-ti-T9B">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="rLD-8C-QE2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -61,11 +53,7 @@
                     <toolbarItems>
                         <barButtonItem title="Item" id="iTL-nN-Br3"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Создать" id="Z45-yk-608">
-                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="H9X-ea-baE">
-                            <color key="tintColor" name="myPurple"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Создать" id="Z45-yk-608"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IeU-i2-cbm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -83,7 +71,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="JgJ-eo-kTU" kind="relationship" relationship="viewControllers" id="rOj-Vg-lAo"/>
-                        <segue destination="lfA-XR-AzH" kind="relationship" relationship="viewControllers" id="zmv-ia-V6V"/>
+                        <segue destination="6W3-9V-Ayc" kind="relationship" relationship="viewControllers" id="zmv-ia-V6V"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71T-tn-1Wy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -115,7 +103,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OcH-E0-mKd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kat-yP-Uas">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -127,13 +115,29 @@
             </objects>
             <point key="canvasLocation" x="1781" y="-196"/>
         </scene>
+        <!--Информация-->
+        <scene sceneID="vZB-VB-BQc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6W3-9V-Ayc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Информация" image="info.circle.fill" catalog="system" id="bxv-zi-HS6"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cEr-c6-f5J">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lfA-XR-AzH" kind="relationship" relationship="rootViewController" id="485-QX-ekf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8mj-T2-YjI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="224.63768115942031" y="459.375"/>
+        </scene>
     </scenes>
     <resources>
         <image name="habits_tab_icon" width="25" height="23"/>
         <image name="info.circle.fill" catalog="system" width="128" height="121"/>
-        <namedColor name="myPurple">
-            <color red="0.63137254901960782" green="0.086274509803921567" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

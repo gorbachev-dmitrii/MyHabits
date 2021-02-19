@@ -33,6 +33,7 @@ class InfoViewController: UIViewController {
         view.disableAutoresizingMask(views: [scrollView, containerView, titleLabel, descriptionLabel])
         setupConstraints()
         loadDescription()
+        title = "Информация"
     }
     
     // MARK: Setup Constraints
