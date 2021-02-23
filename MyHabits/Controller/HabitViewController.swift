@@ -71,7 +71,8 @@ class HabitViewController: UIViewController {
         view.disableAutoresizingMask(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker])
         setupConstraints()
         setupDatePicker()
-        configureNavigationButtons()
+        configureNavigationBar()
+        
     }
     @objc func closeModal() {
         self.dismiss(animated: true, completion: nil)
@@ -84,7 +85,9 @@ class HabitViewController: UIViewController {
                                  color: color)
             let store = HabitsStore.shared
             store.habits.append(newHabit)
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closingModal"), object: nil)
+            })
         } else {
             print("при сохранении ошибка")
         }
@@ -95,7 +98,7 @@ class HabitViewController: UIViewController {
         colorPickerButton.layer.cornerRadius = colorPickerButton.frame.height / 2
     }
     
-    func configureNavigationButtons() {
+    func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(closeModal))
         navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveHabit))

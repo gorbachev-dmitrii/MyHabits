@@ -11,7 +11,7 @@ class HabitsViewController: UIViewController {
 
     var store = HabitsStore.shared
 
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.dataSource = self
@@ -24,21 +24,18 @@ class HabitsViewController: UIViewController {
                     forCellWithReuseIdentifier: String(describing: ProgressCollectionViewCell.self))
         return collection
     }()
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentModally))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-        title = "Cегодня"
-       
         view.addSubview(collectionView)
         setupConstraints()
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = UIColor(named: "myWhite")
         view.backgroundColor = UIColor(named: "myWhite")
-        
+        configureNavigationBar()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "closingModal"), object: nil)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         print("viewWillAppear")
@@ -64,6 +61,16 @@ class HabitsViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    func configureNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentModally))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
+        title = "Cегодня"
+    }
+    
+    @objc func reloadCollectionView() {
+        collectionView.reloadData()
     }
     // MARK: Set custom cells
     func setHabitCell(indexPath: IndexPath) -> UICollectionViewCell {
