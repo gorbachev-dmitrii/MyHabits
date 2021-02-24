@@ -8,16 +8,8 @@
 import UIKit
 
 class ProgressCollectionViewCell: UICollectionViewCell {
-    var store: HabitsStore? {
-        didSet {
-            if let pr = store?.todayProgress {
-                //progressView.progress = pr
-                print(progressView.progress)
-            } else {
-                //progressView.progress = 0
-            }
-        }
-    }
+    
+    let store = HabitsStore.shared
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -31,6 +23,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         progress.progressViewStyle = .bar
         progress.progressTintColor = UIColor(named: "myPurple")
         progress.backgroundColor = .systemGray2
+        progress.layer.cornerRadius = 4
         progress.clipsToBounds = true
         return progress
     }()
@@ -40,12 +33,11 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         contentView.addSubviews(views: [titleLabel, progressView])
         contentView.disableAutoresizingMask(views: [titleLabel, progressView])
         setupConstraints()
-        progressView.progress = 0.5
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        progressView.layer.cornerRadius = 4
+        progressView.progress = store.todayProgress
     }
     
     required init?(coder: NSCoder) {

@@ -9,7 +9,7 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
-    var store = HabitsStore.shared
+    let store = HabitsStore.shared
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
