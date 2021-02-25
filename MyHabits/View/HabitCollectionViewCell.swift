@@ -9,6 +9,8 @@ import UIKit
 
 class HabitCollectionViewCell: UICollectionViewCell {
     
+    // MARK: Properties
+    
     let store = HabitsStore.shared
     var habit: Habit? {
         didSet {
@@ -47,6 +49,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    // MARK: Init and lyfecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubviews(views: [titleLabel, timeLabel, timesTrack, trackButton])
@@ -59,6 +62,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Support functions
     func setFilled() {
         trackButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
     }
@@ -66,41 +70,32 @@ class HabitCollectionViewCell: UICollectionViewCell {
         trackButton.setImage(UIImage(systemName: "circle"), for: .normal)
     }
     
-    func setFilledandSave() {
+    func setFilledAndSave() {
         store.track(habit!)
         setFilled()
     }
     
-    func checkHabitStatus() {
-        baseLogic(firstFunc: setFilled, secondFunc: setEmpty)
+    func printAlreadyTracked() {
+        print("The habit is already tracked today")
     }
     
-    func baseLogic(firstFunc:() -> (), secondFunc:() -> ()) {
+    func checkHabitState(trueFunction:() -> (), falseFunction:() -> ()) {
         if let bool = habit?.isAlreadyTakenToday {
-            if bool {
-                firstFunc()
-            } else {
-                // do smth else
-                secondFunc()
-            }
+        bool ? trueFunction() : falseFunction()
         } else {
-            print("prishel nil")
+            print("cannot bind optional")
         }
     }
-    
-    func smth() {
-        print("уже затрекана сегодня")
+    func checkHabitStatus() {
+        checkHabitState(trueFunction: setFilled, falseFunction: setEmpty)
     }
     
+    // MARK: Button selector
     @objc func trackHabit() {
-        baseLogic(firstFunc: smth, secondFunc: setFilledandSave)
+        checkHabitState(trueFunction: printAlreadyTracked, falseFunction: setFilledAndSave)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        //trackButton.layer.borderColor
-    }
-    
+    // MARK: Constraints
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
