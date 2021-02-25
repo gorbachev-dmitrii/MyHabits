@@ -8,20 +8,22 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
-
+    
     let store = HabitsStore.shared
-
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.backgroundColor = UIColor(named: "myWhite")
         collection.dataSource = self
         collection.delegate = self
         collection.register(
             HabitCollectionViewCell.self,
-                    forCellWithReuseIdentifier: String(describing: HabitCollectionViewCell.self))
+            forCellWithReuseIdentifier: String(describing: HabitCollectionViewCell.self))
         collection.register(
             ProgressCollectionViewCell.self,
-                    forCellWithReuseIdentifier: String(describing: ProgressCollectionViewCell.self))
+            forCellWithReuseIdentifier: String(describing: ProgressCollectionViewCell.self))
         return collection
     }()
     // MARK: Lifecycle
@@ -29,8 +31,6 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(collectionView)
         setupConstraints()
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor(named: "myWhite")
         view.backgroundColor = UIColor(named: "myWhite")
         configureNavigationBar()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "closingModal"), object: nil)
@@ -44,7 +44,6 @@ class HabitsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         print("viewDidAppear")
-        //store.todayProgress
     }
     
     @objc func presentModally() {
@@ -56,7 +55,7 @@ class HabitsViewController: UIViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -66,7 +65,10 @@ class HabitsViewController: UIViewController {
     func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentModally))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-        title = "Cегодня"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let appearance = UINavigationBarAppearance()
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationItem.title = "Cегодня"
     }
     
     @objc func reloadCollectionView() {
@@ -77,8 +79,7 @@ class HabitsViewController: UIViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 8
-        let habit = store.habits[indexPath.item]
-        cell.habit = habit
+        cell.habit = store.habits[indexPath.item]
         return cell
     }
     
@@ -99,8 +100,8 @@ extension HabitsViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return indexPath.section > 0
-        ? setHabitCell(indexPath: indexPath)
-        : setProgressCell(indexPath: indexPath)
+            ? setHabitCell(indexPath: indexPath)
+            : setProgressCell(indexPath: indexPath)
     }
 }
 // MARK: UICollectionViewDelegateFlowLayout
@@ -111,8 +112,22 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
             ? CGSize(width: width, height: 130)
             : CGSize(width: width, height: 60)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 0, left: 0, bottom: 18, right: 0)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = HabitDetailsViewController()
+        if indexPath.section > 0 {
+            let habit = store.habits[indexPath.item]
+            vc.habit = habit
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            print("no cell to push")
         }
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return UIEdgeInsets(top: 22, left: 0, bottom: 18, right: 0)
+        } else {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 18, right: 0)
+        }
+    }
 }

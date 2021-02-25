@@ -102,7 +102,7 @@ class HabitViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveHabit))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-        title = "Создать"
+        navigationItem.title = "Создать"
     }
     
     // MARK: Date and Color Picker

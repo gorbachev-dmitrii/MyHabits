@@ -18,7 +18,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             timeLabel.text =  habit?.dateString
             titleLabel.textColor = habit?.color
             trackButton.tintColor = habit?.color
-            timesTrack.text = "Подряд: " + String((habit?.trackDates.count)!)
             checkHabitStatus()
         }
     }
@@ -60,6 +59,10 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        timesTrack.text = "Подряд: " + String((habit?.trackDates.count)!)
     }
     
     // MARK: Support functions
