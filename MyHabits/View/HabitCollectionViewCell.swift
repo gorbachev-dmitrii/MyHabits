@@ -76,6 +76,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     func setFilledAndSave() {
         store.track(habit!)
         setFilled()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closingModal"), object: nil)
     }
     
     func printAlreadyTracked() {

@@ -20,6 +20,7 @@ extension UILabel {
     
     func setHeadLineFont() {
         self.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        self.textColor = UIColor(named: "myBlue")
         self.numberOfLines = 0
     }
     

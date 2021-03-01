@@ -121,9 +121,9 @@
 		C3AEBFD825DB0924000E3443 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C3AEBFD125DB0700000E3443 /* HabitsViewController.swift */,
 				C3AEBFD525DB0716000E3443 /* InfoViewController.swift */,
 				C332423025DB20E500D5F3FD /* HabitViewController.swift */,
+				C3AEBFD125DB0700000E3443 /* HabitsViewController.swift */,
 				C332424E25E8326000D5F3FD /* HabitDetailsViewController.swift */,
 			);
 			path = Controller;

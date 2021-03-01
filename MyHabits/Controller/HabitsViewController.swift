@@ -32,12 +32,12 @@ class HabitsViewController: UIViewController {
         view.addSubview(collectionView)
         setupConstraints()
         view.backgroundColor = UIColor(named: "myWhite")
-        configureNavigationBar()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "closingModal"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        configureNavigationBar()
         print("viewWillAppear")
     }
     
@@ -47,9 +47,9 @@ class HabitsViewController: UIViewController {
     }
     
     @objc func presentModally() {
-        let habitViewController = self.storyboard?.instantiateViewController(withIdentifier: "HabitViewController") as! HabitViewController
-        let navBarOnModal: UINavigationController = UINavigationController(rootViewController: habitViewController)
-        self.present(navBarOnModal, animated: true, completion: nil)
+        let vc = HabitViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        self.present(nav, animated: true, completion: nil)
     }
     
     

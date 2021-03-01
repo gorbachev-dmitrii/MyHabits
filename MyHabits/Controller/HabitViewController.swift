@@ -9,6 +9,16 @@ import UIKit
 
 class HabitViewController: UIViewController {
     // MARK: Properties
+    let store = HabitsStore.shared
+    var habit: Habit? {
+        didSet {
+            titleInput.text = habit?.name
+            colorPickerButton.backgroundColor = habit?.color
+            datePicker.date = habit?.date ?? Date()
+            chooseTimeLabel.attributedText = createAttrString(fromDate: datePicker.date)
+        }
+    }
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
@@ -62,35 +72,87 @@ class HabitViewController: UIViewController {
         picker.addTarget(self, action: #selector(datePickerValue(_:)), for: .valueChanged)
         return picker
     }()
+    let removeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Удалить привычку", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker])
-        view.disableAutoresizingMask(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker])
+        view.addSubviews(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker, removeButton])
+        view.disableAutoresizingMask(views: [titleLabel, titleInput, colorLabel, colorPickerButton, timeLabel, chooseTimeLabel, datePicker, removeButton])
         setupConstraints()
         setupDatePicker()
         configureNavigationBar()
+        configureEditMode()
+        view.backgroundColor = .white
     }
     @objc func closeModal() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func saveHabit() {
-        if let text = titleInput.text, let color = colorPickerButton.backgroundColor {
-            let newHabit = Habit(name: text,
-                                 date: datePicker.date,
-                                 color: color)
-            let store = HabitsStore.shared
-            store.habits.append(newHabit)
-            self.dismiss(animated: true, completion: {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closingModal"), object: nil)
-            })
+    func configureEditMode() {
+        if let _ = habit {
+            // макет для редактирования
+            removeButton.isHidden = false
+            titleInput.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            titleInput.textColor = UIColor(named: "myBlue")
+            navigationItem.title = "Править"
         } else {
-            print("при сохранении ошибка")
+            // макет для создания
+            removeButton.isHidden = true
+            navigationItem.title = "Создать"
         }
-        
+    }
+    
+    @objc func showAlert() {
+        let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit!.name)?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { (action:UIAlertAction) in
+            print("You've pressed cancel");
+        }
+        let confirmAction = UIAlertAction(title: "Удалить", style: .default) { (action:UIAlertAction) in
+            print("You've pressed remove")
+            self.store.habits.removeAll(where: {$0 == self.habit})
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToRoot"), object: nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        self.present(alertController, animated: true, completion: nil)
+
+    }
+    // MARK: Save/remove habit functions
+    @objc func removeHabit() {
+        store.habits.removeAll(where: {$0 == habit})
+    }
+    
+    @objc func saveHabit() {
+        if let _ = habit {
+            saveEditedHabit()
+        } else {
+            saveNewHabit()
+        }
+        self.dismiss(animated: true, completion: {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+        })
+    }
+    
+    func saveNewHabit() {
+            let newHabit = Habit(name: titleInput.text!,
+                                 date: datePicker.date,
+                                 color: colorPickerButton.backgroundColor!)
+            store.habits.append(newHabit)
+    }
+    func saveEditedHabit() {
+            habit?.color = colorPickerButton.backgroundColor!
+            habit?.date = datePicker.date
+            habit?.name = titleInput.text!
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToRoot"), object: nil)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -102,7 +164,7 @@ class HabitViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveHabit))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-        navigationItem.title = "Создать"
+        
     }
     
     // MARK: Date and Color Picker
@@ -114,12 +176,9 @@ class HabitViewController: UIViewController {
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .wheels
     }
-    
+        
     @objc func datePickerValue(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        chooseTimeLabel.attributedText = createAttrString(fromString: dateFormatter.string(from: datePicker.date))
+        chooseTimeLabel.attributedText = createAttrString(fromDate: datePicker.date)
     }
     
     // MARK: Constraints
@@ -128,37 +187,36 @@ class HabitViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
             titleInput.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 7),
             titleInput.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             titleInput.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            
             colorLabel.topAnchor.constraint(equalTo: titleInput.bottomAnchor, constant: 15),
             colorLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             colorLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            
             colorPickerButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 7),
             colorPickerButton.widthAnchor.constraint(equalToConstant: 30),
             colorPickerButton.heightAnchor.constraint(equalToConstant: 30),
             colorPickerButton.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            
             timeLabel.topAnchor.constraint(equalTo: colorPickerButton.bottomAnchor, constant: 15),
             timeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             timeLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            
             chooseTimeLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 7),
             chooseTimeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             chooseTimeLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            
             datePicker.topAnchor.constraint(equalTo: chooseTimeLabel.bottomAnchor, constant: 15),
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            removeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            removeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
     
-    func createAttrString(fromString: String) -> NSAttributedString {
+    func createAttrString(fromDate: Date) -> NSAttributedString {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "myPurple")]
-        let attrString = NSMutableAttributedString(string: fromString, attributes: attributes as [NSAttributedString.Key : Any])
+        let attrString = NSMutableAttributedString(string: dateFormatter.string(from: fromDate), attributes: attributes as [NSAttributedString.Key : Any])
         let normalStr = NSMutableAttributedString(string: "Каждый день в ")
         normalStr.append(attrString)
         return normalStr

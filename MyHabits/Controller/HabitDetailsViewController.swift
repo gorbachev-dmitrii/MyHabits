@@ -17,18 +17,30 @@ class HabitDetailsViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView.backgroundColor = UIColor(named: "myWhite")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
         return tableView
     }()
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "myWhite")
         view.addSubview(tableView)
         setupConstraints()
+        NotificationCenter.default.addObserver(self, selector: #selector(goToRoot), name: NSNotification.Name(rawValue: "goToRoot"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         configureNavigationBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    @objc func goToRoot() {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func configureNavigationBar() {
@@ -39,10 +51,25 @@ class HabitDetailsViewController: UIViewController {
         navigationItem.title = habit?.name
         navigationController?.navigationBar.prefersLargeTitles = false
     }
+    
     @objc func editHabit() {
-        
+        let vc = HabitViewController()
+        vc.habit = habit
+        let nav = UINavigationController(rootViewController: vc)
+        self.present(nav, animated: true, completion: nil)
     }
     
+    func createArrayOfStrings() -> [String] {
+        var array = [String]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        for date in store.dates {
+            array.append(dateFormatter.string(from: date))
+        }
+        return array
+    }
+    // MARK: Constraints
     func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -60,12 +87,13 @@ extension HabitDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-        
-        cell.textLabel?.text = "alalla"
+        cell.textLabel?.text = createArrayOfStrings()[indexPath.row]
+        if store.habit(habit!, isTrackedIn: store.dates[indexPath.row]) {
+            cell.accessoryType = .checkmark
+            cell.tintColor = UIColor(named: "myPurple")
+        }
         return cell
     }
-    
-    
 }
 
 extension HabitDetailsViewController: UITableViewDelegate {
