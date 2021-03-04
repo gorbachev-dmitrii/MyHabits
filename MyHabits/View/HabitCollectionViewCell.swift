@@ -10,7 +10,6 @@ import UIKit
 class HabitCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
-    
     let store = HabitsStore.shared
     var habit: Habit? {
         didSet {
@@ -18,7 +17,9 @@ class HabitCollectionViewCell: UICollectionViewCell {
             timeLabel.text =  habit?.dateString
             titleLabel.textColor = habit?.color
             trackButton.tintColor = habit?.color
-            checkHabitStatus()
+            if let bool = habit?.isAlreadyTakenToday {
+                bool ? setFilled() : setEmpty()
+            }
         }
     }
     
@@ -54,7 +55,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         contentView.addSubviews(views: [titleLabel, timeLabel, timesTrack, trackButton])
         contentView.disableAutoresizingMask(views: [titleLabel, timeLabel, timesTrack, trackButton])
         setupConstraints()
-        trackButton.addTarget(self, action: #selector(trackHabit), for: .touchUpInside)
+        trackButton.addTarget(self, action: #selector(track), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -73,30 +74,17 @@ class HabitCollectionViewCell: UICollectionViewCell {
         trackButton.setImage(UIImage(systemName: "circle"), for: .normal)
     }
     
-    func setFilledAndSave() {
-        store.track(habit!)
-        setFilled()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closingModal"), object: nil)
-    }
-    
-    func printAlreadyTracked() {
-        print("The habit is already tracked today")
-    }
-    
-    func checkHabitState(trueFunction:() -> (), falseFunction:() -> ()) {
-        if let bool = habit?.isAlreadyTakenToday {
-        bool ? trueFunction() : falseFunction()
-        } else {
-            print("cannot bind optional")
-        }
-    }
-    func checkHabitStatus() {
-        checkHabitState(trueFunction: setFilled, falseFunction: setEmpty)
-    }
-    
     // MARK: Button selector
-    @objc func trackHabit() {
-        checkHabitState(trueFunction: printAlreadyTracked, falseFunction: setFilledAndSave)
+    @objc func track() {
+        if let bool = habit?.isAlreadyTakenToday {
+            if !bool {
+                store.track(habit!)
+                trackButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+                postReloadMessage()
+            } else {
+                print("привычка затрекана сегодня")
+            }
+        }
     }
     
     // MARK: Constraints

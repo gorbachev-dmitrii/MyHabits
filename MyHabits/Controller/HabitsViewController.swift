@@ -46,7 +46,7 @@ class HabitsViewController: UIViewController {
         print("viewDidAppear")
     }
     
-    @objc func presentModally() {
+    @objc func presentHabitVC() {
         let vc = HabitViewController()
         let nav = UINavigationController(rootViewController: vc)
         self.present(nav, animated: true, completion: nil)
@@ -63,11 +63,12 @@ class HabitsViewController: UIViewController {
     }
     
     func configureNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentModally))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentHabitVC))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let appearance = UINavigationBarAppearance()
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        navigationItem.largeTitleDisplayMode = .always
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        let appearance = UINavigationBarAppearance()
+//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationItem.title = "Cегодня"
     }
     

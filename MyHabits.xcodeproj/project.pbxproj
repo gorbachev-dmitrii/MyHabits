@@ -15,6 +15,7 @@
 		C332424525E058D200D5F3FD /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424425E058D200D5F3FD /* HabitCollectionViewCell.swift */; };
 		C332424825E05EBE00D5F3FD /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424725E05EBE00D5F3FD /* ProgressCollectionViewCell.swift */; };
 		C332424F25E8326000D5F3FD /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424E25E8326000D5F3FD /* HabitDetailsViewController.swift */; };
+		C332425725F1775E00D5F3FD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332425625F1775E00D5F3FD /* Utilities.swift */; };
 		C33F850025D8950500EE4441 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F84FF25D8950500EE4441 /* AppDelegate.swift */; };
 		C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F850125D8950500EE4441 /* SceneDelegate.swift */; };
 		C33F850725D8950500EE4441 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33F850525D8950500EE4441 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		C332424425E058D200D5F3FD /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		C332424725E05EBE00D5F3FD /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
 		C332424E25E8326000D5F3FD /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
+		C332425625F1775E00D5F3FD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C33F84FC25D8950500EE4441 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33F84FF25D8950500EE4441 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C33F850125D8950500EE4441 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		C332423725DC6C7F00D5F3FD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C332425625F1775E00D5F3FD /* Utilities.swift */,
 				C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */,
 				C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */,
 				C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */,
@@ -209,6 +212,7 @@
 				C332424825E05EBE00D5F3FD /* ProgressCollectionViewCell.swift in Sources */,
 				C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */,
 				C332423525DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift in Sources */,
+				C332425725F1775E00D5F3FD /* Utilities.swift in Sources */,
 				C3AEBFD225DB0700000E3443 /* HabitsViewController.swift in Sources */,
 				C3AEBFD625DB0716000E3443 /* InfoViewController.swift in Sources */,
 				C332424525E058D200D5F3FD /* HabitCollectionViewCell.swift in Sources */,

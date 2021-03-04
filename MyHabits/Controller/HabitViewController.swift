@@ -55,9 +55,9 @@ class HabitViewController: UIViewController {
     }()
     
     lazy var colorPicker: UIColorPickerViewController = {
-        let cp = UIColorPickerViewController()
-        cp.delegate = self
-        return cp
+        let picker = UIColorPickerViewController()
+        picker.delegate = self
+        return picker
     }()
     
     let chooseTimeLabel: UILabel = {
@@ -111,14 +111,9 @@ class HabitViewController: UIViewController {
     
     @objc func showAlert() {
         let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit!.name)?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { (action:UIAlertAction) in
-            print("You've pressed cancel");
-        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) 
         let confirmAction = UIAlertAction(title: "Удалить", style: .default) { (action:UIAlertAction) in
-            print("You've pressed remove")
-            self.store.habits.removeAll(where: {$0 == self.habit})
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToRoot"), object: nil)
+            self.removeHabit()
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)
@@ -127,8 +122,10 @@ class HabitViewController: UIViewController {
 
     }
     // MARK: Save/remove habit functions
-    @objc func removeHabit() {
-        store.habits.removeAll(where: {$0 == habit})
+    func removeHabit() {
+        store.habits.removeAll(where: {$0 == self.habit})
+        postReloadMessage()
+        postToRootMessage()
     }
     
     @objc func saveHabit() {
@@ -138,7 +135,7 @@ class HabitViewController: UIViewController {
             saveNewHabit()
         }
         self.dismiss(animated: true, completion: {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+            postReloadMessage()
         })
     }
     
@@ -152,10 +149,10 @@ class HabitViewController: UIViewController {
             habit?.color = colorPickerButton.backgroundColor!
             habit?.date = datePicker.date
             habit?.name = titleInput.text!
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToRoot"), object: nil)
+            postToRootMessage()
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         colorPickerButton.layer.cornerRadius = colorPickerButton.frame.height / 2
     }
     
@@ -164,7 +161,6 @@ class HabitViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveHabit))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-        
     }
     
     // MARK: Date and Color Picker

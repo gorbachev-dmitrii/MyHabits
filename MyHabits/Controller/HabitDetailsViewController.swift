@@ -27,7 +27,7 @@ class HabitDetailsViewController: UIViewController {
         view.backgroundColor = UIColor(named: "myWhite")
         view.addSubview(tableView)
         setupConstraints()
-        NotificationCenter.default.addObserver(self, selector: #selector(goToRoot), name: NSNotification.Name(rawValue: "goToRoot"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(goToRootVC), name: NSNotification.Name(rawValue: "goToRootVC"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +39,7 @@ class HabitDetailsViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-    @objc func goToRoot() {
+    @objc func goToRootVC() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -49,7 +49,8 @@ class HabitDetailsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editHabit))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.title = habit?.name
-        navigationController?.navigationBar.prefersLargeTitles = false
+//        navigationController?.navigationBar.prefersLargeTitles = false
+//        navigationItem.largeTitleDisplayMode = .never
     }
     
     @objc func editHabit() {
@@ -59,7 +60,7 @@ class HabitDetailsViewController: UIViewController {
         self.present(nav, animated: true, completion: nil)
     }
     
-    func createArrayOfStrings() -> [String] {
+    func createStringsArray() -> [String] {
         var array = [String]()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
@@ -87,16 +88,19 @@ extension HabitDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-        cell.textLabel?.text = createArrayOfStrings()[indexPath.row]
+        cell.textLabel?.text = createStringsArray()[indexPath.row]
         if store.habit(habit!, isTrackedIn: store.dates[indexPath.row]) {
             cell.accessoryType = .checkmark
             cell.tintColor = UIColor(named: "myPurple")
         }
         return cell
     }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Активность"
+    }
 }
 
 extension HabitDetailsViewController: UITableViewDelegate {
-    
+
 }
 
