@@ -19,6 +19,8 @@ class HabitViewController: UIViewController {
         }
     }
     
+    var delegate: ReloadDataDelegate?
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
@@ -134,8 +136,9 @@ class HabitViewController: UIViewController {
         } else {
             saveNewHabit()
         }
+        self.delegate!.reloadData()
         self.dismiss(animated: true, completion: {
-            postReloadMessage()
+            //postReloadMessage()
         })
     }
     

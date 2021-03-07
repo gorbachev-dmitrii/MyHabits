@@ -8,7 +8,9 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
-    
+
+
+    let vc = HabitViewController()
     let store = HabitsStore.shared
     
     lazy var collectionView: UICollectionView = {
@@ -31,6 +33,7 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(collectionView)
         setupConstraints()
+        vc.delegate = self
         view.backgroundColor = UIColor(named: "myWhite")
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
     }
@@ -47,7 +50,6 @@ class HabitsViewController: UIViewController {
     }
     
     @objc func presentHabitVC() {
-        let vc = HabitViewController()
         let nav = UINavigationController(rootViewController: vc)
         self.present(nav, animated: true, completion: nil)
     }
@@ -75,6 +77,9 @@ class HabitsViewController: UIViewController {
     @objc func reloadCollectionView() {
         collectionView.reloadData()
     }
+//    func reloadData() {
+//        collectionView.reloadData()
+//    }
     // MARK: Set custom cells
     func setHabitCell(indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
@@ -130,5 +135,11 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         } else {
             return UIEdgeInsets(top: 0, left: 0, bottom: 18, right: 0)
         }
+    }
+}
+
+extension HabitsViewController: ReloadDataDelegate {
+    func reloadData() {
+        collectionView.reloadData()
     }
 }
