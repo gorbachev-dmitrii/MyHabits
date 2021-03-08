@@ -18,9 +18,7 @@ class HabitViewController: UIViewController {
             chooseTimeLabel.attributedText = createAttrString(fromDate: datePicker.date)
         }
     }
-    
-    var delegate: ReloadDataDelegate?
-    
+    //weak var delegate: ReloadDataDelegate?
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
@@ -130,15 +128,16 @@ class HabitViewController: UIViewController {
         postToRootMessage()
     }
     
+    
     @objc func saveHabit() {
         if let _ = habit {
             saveEditedHabit()
         } else {
             saveNewHabit()
         }
-        self.delegate!.reloadData()
+        //self.delegate?.reloadData()
         self.dismiss(animated: true, completion: {
-            //postReloadMessage()
+            postReloadMessage()
         })
     }
     

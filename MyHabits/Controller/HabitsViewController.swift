@@ -9,9 +9,8 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
-
-    let vc = HabitViewController()
     let store = HabitsStore.shared
+    let vc = HabitViewController()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -33,9 +32,9 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(collectionView)
         setupConstraints()
-        vc.delegate = self
         view.backgroundColor = UIColor(named: "myWhite")
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+        //vc.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,19 +66,13 @@ class HabitsViewController: UIViewController {
     func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentHabitVC))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
-//        navigationItem.largeTitleDisplayMode = .always
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        let appearance = UINavigationBarAppearance()
-//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationItem.title = "Cегодня"
     }
     
     @objc func reloadCollectionView() {
         collectionView.reloadData()
     }
-//    func reloadData() {
-//        collectionView.reloadData()
-//    }
+
     // MARK: Set custom cells
     func setHabitCell(indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
@@ -138,8 +131,8 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension HabitsViewController: ReloadDataDelegate {
-    func reloadData() {
-        collectionView.reloadData()
-    }
-}
+//extension HabitsViewController: ReloadDataDelegate {
+//    func reloadData() {
+//        collectionView.reloadData()
+//    }
+//}

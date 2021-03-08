@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ReloadDataDelegate {
+protocol ReloadDataDelegate: AnyObject {
     func reloadData()
 }

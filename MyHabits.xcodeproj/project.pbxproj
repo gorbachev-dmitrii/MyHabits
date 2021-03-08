@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C332422A25DB0D9100D5F3FD /* Текст.md in Resources */ = {isa = PBXBuildFile; fileRef = C332422925DB0D9100D5F3FD /* Текст.md */; };
 		C332423125DB20E500D5F3FD /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423025DB20E500D5F3FD /* HabitViewController.swift */; };
-		C332423525DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */; };
+		C332423525DC6B4C00D5F3FD /* UIView+ Support Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423425DC6B4C00D5F3FD /* UIView+ Support Functions.swift */; };
 		C332423C25DDB0CE00D5F3FD /* UILabel + Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */; };
 		C332423F25DEFD0500D5F3FD /* UIColor + CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */; };
 		C332424525E058D200D5F3FD /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424425E058D200D5F3FD /* HabitCollectionViewCell.swift */; };
@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		C332422925DB0D9100D5F3FD /* Текст.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Текст.md"; sourceTree = "<group>"; };
 		C332423025DB20E500D5F3FD /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
-		C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DisableAutoresizingMask.swift"; sourceTree = "<group>"; };
+		C332423425DC6B4C00D5F3FD /* UIView+ Support Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ Support Functions.swift"; sourceTree = "<group>"; };
 		C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Fonts.swift"; sourceTree = "<group>"; };
 		C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + CustomColors.swift"; sourceTree = "<group>"; };
 		C332424425E058D200D5F3FD /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				C332425625F1775E00D5F3FD /* Utilities.swift */,
-				C332423425DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift */,
+				C332423425DC6B4C00D5F3FD /* UIView+ Support Functions.swift */,
 				C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */,
 				C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */,
 				C332425B25F4300900D5F3FD /* ReloadProtocol.swift */,
@@ -215,7 +215,7 @@
 				C332423F25DEFD0500D5F3FD /* UIColor + CustomColors.swift in Sources */,
 				C332424825E05EBE00D5F3FD /* ProgressCollectionViewCell.swift in Sources */,
 				C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */,
-				C332423525DC6B4C00D5F3FD /* UIView+DisableAutoresizingMask.swift in Sources */,
+				C332423525DC6B4C00D5F3FD /* UIView+ Support Functions.swift in Sources */,
 				C332425725F1775E00D5F3FD /* Utilities.swift in Sources */,
 				C3AEBFD225DB0700000E3443 /* HabitsViewController.swift in Sources */,
 				C3AEBFD625DB0716000E3443 /* InfoViewController.swift in Sources */,
