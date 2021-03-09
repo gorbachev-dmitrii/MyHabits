@@ -49,8 +49,7 @@ class HabitDetailsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editHabit))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.title = habit?.name
-//        navigationController?.navigationBar.prefersLargeTitles = false
-//        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     @objc func editHabit() {

@@ -12,14 +12,14 @@ class InfoViewController: UIViewController {
     private let containerView = UIView()
     private let scrollView = UIScrollView()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.setTitleFont()
         label.text = "Привычка за 21 день"
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.setBodyFont()
         return label

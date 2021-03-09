@@ -23,25 +23,25 @@ class HabitCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.setHeadLineFont()
         return label
     }()
     
-    let timeLabel: UILabel = {
+    private let timeLabel: UILabel = {
         let label = UILabel()
         label.setCaptionFont()
         return label
     }()
     
-    let timesTrack: UILabel = {
+    private let timesTrack: UILabel = {
         let label = UILabel()
         label.setFootnoteFont()
         return label
     }()
     
-    let trackButton: UIButton = {
+    private let trackButton: UIButton = {
         let button = UIButton(type: .custom)
         button.clipsToBounds = true
         button.imageView?.contentMode = .scaleAspectFit
@@ -79,7 +79,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
         if let bool = habit?.isAlreadyTakenToday {
             if !bool {
                 store.track(habit!)
-                trackButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+                setFilled()
                 postReloadMessage()
             } else {
                 print("привычка затрекана сегодня")

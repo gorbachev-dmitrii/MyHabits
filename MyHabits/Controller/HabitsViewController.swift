@@ -8,11 +8,10 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
-
-    let store = HabitsStore.shared
-    let vc = HabitViewController()
     
-    lazy var collectionView: UICollectionView = {
+    let store = HabitsStore.shared
+    
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +33,6 @@ class HabitsViewController: UIViewController {
         setupConstraints()
         view.backgroundColor = UIColor(named: "myWhite")
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
-        //vc.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +47,8 @@ class HabitsViewController: UIViewController {
     }
     
     @objc func presentHabitVC() {
+        let vc = HabitViewController()
+        vc.mainDelegate = self
         let nav = UINavigationController(rootViewController: vc)
         self.present(nav, animated: true, completion: nil)
     }
@@ -67,6 +67,8 @@ class HabitsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentHabitVC))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.title = "Cегодня"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
     
     @objc func reloadCollectionView() {
@@ -131,8 +133,9 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//extension HabitsViewController: ReloadDataDelegate {
-//    func reloadData() {
-//        collectionView.reloadData()
-//    }
-//}
+extension HabitsViewController: ReloadDataDelegate {
+    func reloadData() {
+        collectionView.reloadData()
+        print("reload command")
+    }
+}

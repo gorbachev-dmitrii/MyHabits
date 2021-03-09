@@ -11,7 +11,6 @@
 		C332423125DB20E500D5F3FD /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423025DB20E500D5F3FD /* HabitViewController.swift */; };
 		C332423525DC6B4C00D5F3FD /* UIView+ Support Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423425DC6B4C00D5F3FD /* UIView+ Support Functions.swift */; };
 		C332423C25DDB0CE00D5F3FD /* UILabel + Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */; };
-		C332423F25DEFD0500D5F3FD /* UIColor + CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */; };
 		C332424525E058D200D5F3FD /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424425E058D200D5F3FD /* HabitCollectionViewCell.swift */; };
 		C332424825E05EBE00D5F3FD /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424725E05EBE00D5F3FD /* ProgressCollectionViewCell.swift */; };
 		C332424F25E8326000D5F3FD /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332424E25E8326000D5F3FD /* HabitDetailsViewController.swift */; };
@@ -32,7 +31,6 @@
 		C332423025DB20E500D5F3FD /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		C332423425DC6B4C00D5F3FD /* UIView+ Support Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ Support Functions.swift"; sourceTree = "<group>"; };
 		C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Fonts.swift"; sourceTree = "<group>"; };
-		C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + CustomColors.swift"; sourceTree = "<group>"; };
 		C332424425E058D200D5F3FD /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		C332424725E05EBE00D5F3FD /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
 		C332424E25E8326000D5F3FD /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 				C332425625F1775E00D5F3FD /* Utilities.swift */,
 				C332423425DC6B4C00D5F3FD /* UIView+ Support Functions.swift */,
 				C332423B25DDB0CE00D5F3FD /* UILabel + Fonts.swift */,
-				C332423E25DEFD0500D5F3FD /* UIColor + CustomColors.swift */,
 				C332425B25F4300900D5F3FD /* ReloadProtocol.swift */,
 			);
 			path = Extensions;
@@ -212,7 +209,6 @@
 				C33F850025D8950500EE4441 /* AppDelegate.swift in Sources */,
 				C332423C25DDB0CE00D5F3FD /* UILabel + Fonts.swift in Sources */,
 				C332424F25E8326000D5F3FD /* HabitDetailsViewController.swift in Sources */,
-				C332423F25DEFD0500D5F3FD /* UIColor + CustomColors.swift in Sources */,
 				C332424825E05EBE00D5F3FD /* ProgressCollectionViewCell.swift in Sources */,
 				C33F850225D8950500EE4441 /* SceneDelegate.swift in Sources */,
 				C332423525DC6B4C00D5F3FD /* UIView+ Support Functions.swift in Sources */,

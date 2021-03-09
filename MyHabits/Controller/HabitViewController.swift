@@ -18,61 +18,63 @@ class HabitViewController: UIViewController {
             chooseTimeLabel.attributedText = createAttrString(fromDate: datePicker.date)
         }
     }
-    //weak var delegate: ReloadDataDelegate?
-    let titleLabel: UILabel = {
+    var mainDelegate: ReloadDataDelegate?
+   
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
         label.setFootnoteFontUppercased()
         return label
     }()
     
-    let titleInput: UITextField = {
+    private let titleInput: UITextField = {
         let input = UITextField()
         input.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         input.textColor = .systemGray2
         return input
     }()
     
-    let colorLabel: UILabel = {
+    private let colorLabel: UILabel = {
         let label = UILabel()
         label.text = "Цвет"
         label.setFootnoteFontUppercased()
         return label
     }()
     
-    let colorPickerButton: UIButton = {
+    private let colorPickerButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "myOrange")
         button.addTarget(self, action: #selector(showColorPicker), for: .touchUpInside)
         return button
     }()
     
-    let timeLabel: UILabel = {
+    private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "Время"
         label.setFootnoteFontUppercased()
         return label
     }()
     
-    lazy var colorPicker: UIColorPickerViewController = {
+    private lazy var colorPicker: UIColorPickerViewController = {
         let picker = UIColorPickerViewController()
         picker.delegate = self
         return picker
     }()
     
-    let chooseTimeLabel: UILabel = {
+    private let chooseTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "Каждый день в"
         label.setBodyFont()
         return label
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.addTarget(self, action: #selector(datePickerValue(_:)), for: .valueChanged)
         return picker
     }()
-    let removeButton: UIButton = {
+    
+    private let removeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Удалить привычку", for: .normal)
         button.setTitleColor(.red, for: .normal)
@@ -124,10 +126,9 @@ class HabitViewController: UIViewController {
     // MARK: Save/remove habit functions
     func removeHabit() {
         store.habits.removeAll(where: {$0 == self.habit})
-        postReloadMessage()
         postToRootMessage()
+        postReloadMessage()
     }
-    
     
     @objc func saveHabit() {
         if let _ = habit {
@@ -135,23 +136,22 @@ class HabitViewController: UIViewController {
         } else {
             saveNewHabit()
         }
-        //self.delegate?.reloadData()
-        self.dismiss(animated: true, completion: {
-            postReloadMessage()
-        })
+        self.dismiss(animated: true, completion: nil)
     }
     
     func saveNewHabit() {
-            let newHabit = Habit(name: titleInput.text!,
+        let newHabit = Habit(name: titleInput.text!,
                                  date: datePicker.date,
                                  color: colorPickerButton.backgroundColor!)
-            store.habits.append(newHabit)
+        store.habits.append(newHabit)
+        mainDelegate?.reloadData()
     }
     func saveEditedHabit() {
             habit?.color = colorPickerButton.backgroundColor!
             habit?.date = datePicker.date
             habit?.name = titleInput.text!
             postToRootMessage()
+            postReloadMessage()
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -227,3 +227,4 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
             colorPickerButton.backgroundColor = viewController.selectedColor
     }
 }
+

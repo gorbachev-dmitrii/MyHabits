@@ -11,19 +11,18 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     // MARK: Properties
     let store = HabitsStore.shared
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.setFootnoteStatusFont()
         label.text = "Все получится!"
         return label
     }()
-    let percentLabel: UILabel = {
+    private let percentLabel: UILabel = {
         let label = UILabel()
         label.setFootnoteFont()
         return label
     }()
-    
-    let progressView: UIProgressView = {
+    private let progressView: UIProgressView = {
         let progress = UIProgressView()
         progress.progressViewStyle = .bar
         progress.progressTintColor = UIColor(named: "myPurple")
