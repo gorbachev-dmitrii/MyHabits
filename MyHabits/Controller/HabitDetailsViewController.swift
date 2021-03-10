@@ -12,7 +12,7 @@ class HabitDetailsViewController: UIViewController {
     // MARK: Properties
     let store = HabitsStore.shared
     var habit: Habit?
-    
+    var index: Int?
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.delegate = self
@@ -44,8 +44,13 @@ class HabitDetailsViewController: UIViewController {
     }
     
     func configureNavigationBar() {
-        // вот тут не меняется цвет кнопки "Назад", не пойму, почему(
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "myPurple")
+        // вот тут не меняется цвет кнопки "Назад", потому что она nil, но все же как изменить ее цвет?
+        if let button = navigationItem.leftBarButtonItem {
+            button.tintColor = UIColor(named: "myPurple")
+        } else {
+            print("button is nil")
+        }
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editHabit))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "myPurple")
         navigationItem.title = habit?.name
@@ -55,6 +60,7 @@ class HabitDetailsViewController: UIViewController {
     @objc func editHabit() {
         let vc = HabitViewController()
         vc.habit = habit
+        vc.index = index
         let nav = UINavigationController(rootViewController: vc)
         self.present(nav, animated: true, completion: nil)
     }

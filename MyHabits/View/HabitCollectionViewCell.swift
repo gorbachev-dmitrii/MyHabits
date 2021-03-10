@@ -22,6 +22,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    weak var mainDelegate: ReloadDataDelegate?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -80,7 +81,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             if !bool {
                 store.track(habit!)
                 setFilled()
-                postReloadMessage()
+                mainDelegate?.reloadData()
             } else {
                 print("привычка затрекана сегодня")
             }

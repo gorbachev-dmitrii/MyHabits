@@ -32,18 +32,13 @@ class HabitsViewController: UIViewController {
         view.addSubview(collectionView)
         setupConstraints()
         view.backgroundColor = UIColor(named: "myWhite")
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         configureNavigationBar()
+        collectionView.reloadData()
         print("viewWillAppear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        print("viewDidAppear")
     }
     
     @objc func presentHabitVC() {
@@ -52,7 +47,6 @@ class HabitsViewController: UIViewController {
         let nav = UINavigationController(rootViewController: vc)
         self.present(nav, animated: true, completion: nil)
     }
-    
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -70,10 +64,6 @@ class HabitsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
-    
-    @objc func reloadCollectionView() {
-        collectionView.reloadData()
-    }
 
     // MARK: Set custom cells
     func setHabitCell(indexPath: IndexPath) -> UICollectionViewCell {
@@ -81,6 +71,7 @@ class HabitsViewController: UIViewController {
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 8
         cell.habit = store.habits[indexPath.item]
+        cell.mainDelegate = self
         return cell
     }
     
@@ -118,6 +109,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         if indexPath.section > 0 {
             let habit = store.habits[indexPath.item]
             vc.habit = habit
+            vc.index = indexPath.item
             navigationController?.pushViewController(vc, animated: true)
         } else {
             print("no cell to push")
@@ -136,6 +128,5 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
 extension HabitsViewController: ReloadDataDelegate {
     func reloadData() {
         collectionView.reloadData()
-        print("reload command")
     }
 }

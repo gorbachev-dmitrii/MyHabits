@@ -18,8 +18,8 @@ class HabitViewController: UIViewController {
             chooseTimeLabel.attributedText = createAttrString(fromDate: datePicker.date)
         }
     }
-    var mainDelegate: ReloadDataDelegate?
-   
+    weak var mainDelegate: ReloadDataDelegate?
+    var index: Int?
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Название"
@@ -93,9 +93,6 @@ class HabitViewController: UIViewController {
         configureEditMode()
         view.backgroundColor = .white
     }
-    @objc func closeModal() {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     func configureEditMode() {
         if let _ = habit {
@@ -109,6 +106,10 @@ class HabitViewController: UIViewController {
             removeButton.isHidden = true
             navigationItem.title = "Создать"
         }
+    }
+    
+    @objc func closeModal() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func showAlert() {
@@ -125,9 +126,9 @@ class HabitViewController: UIViewController {
     }
     // MARK: Save/remove habit functions
     func removeHabit() {
-        store.habits.removeAll(where: {$0 == self.habit})
+        store.habits.remove(at: index!)
+        //store.habits.removeAll(where: {$0 == self.habit})
         postToRootMessage()
-        postReloadMessage()
     }
     
     @objc func saveHabit() {
@@ -136,6 +137,7 @@ class HabitViewController: UIViewController {
         } else {
             saveNewHabit()
         }
+        mainDelegate?.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -144,14 +146,15 @@ class HabitViewController: UIViewController {
                                  date: datePicker.date,
                                  color: colorPickerButton.backgroundColor!)
         store.habits.append(newHabit)
-        mainDelegate?.reloadData()
+        
     }
     func saveEditedHabit() {
-            habit?.color = colorPickerButton.backgroundColor!
-            habit?.date = datePicker.date
-            habit?.name = titleInput.text!
-            postToRootMessage()
-            postReloadMessage()
+        store.habits.remove(at: index!)
+        habit?.color = colorPickerButton.backgroundColor!
+        habit?.date = datePicker.date
+        habit?.name = titleInput.text!
+        store.habits.insert(habit!, at: index!)
+        postToRootMessage()
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -222,7 +225,6 @@ class HabitViewController: UIViewController {
 }
 // MARK: UIColorPickerViewControllerDelegate
 extension HabitViewController: UIColorPickerViewControllerDelegate {
-    //  Called on every color selection done in the picker.
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
             colorPickerButton.backgroundColor = viewController.selectedColor
     }
